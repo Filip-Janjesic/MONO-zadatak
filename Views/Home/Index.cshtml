@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<br>
+
+<div class="text-center">
+    <h1 class="display-4"><i>Dobrodošli</i></h1>
+    <br><br>
+    <p> Prijemni zadatak za tvrtku Mono Osijek </p>
+</div>
+
+<br>
+<br>
+
+
+   <!-- SAT U MENIU ,UNIVERZALNA JS DATOTEKA SAT.JS PRIMJENA NA SVIM-->
+
+                <div id="sat" align="center"  style=" margin: 22px;">
+                  <BODY  bgcolour="white" onLoad="Vrijeme()" >
+                    <FORM name="vrijemeForma">
+                    <input tipe="text" name="cifre" size=8>
+                    </FORM>
+                  </BODY>
+                </div>
+
+         
+      </div>
+
+
+
+
+
+
+<!-- ISPIS ,POTPIS, C2023 VODENI ŽIG -->
+<button1 onclick="typeWriter()">© j -onclick-</button1>
+
+<p id="c2023"></p>
+
+<script>
+    var i = 0;
+    var txt = '------ Izraditi prijemni ispit za tvrtku Mono Osijek , po zadanim parametrima 10.6.2023 ------';
+    var speed = 50; // vrijeme ispisa
+
+    function typeWriter() {
+        if (i < txt.length) {
+            document.getElementById("c2023").innerHTML += txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+    }
+</script>
+
+
+
