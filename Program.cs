@@ -1,38 +1,38 @@
-global using Mono.Models;
-global using Microsoft.AspNetCore.Mvc;
-global using System.Diagnostics;
-global using Mono.Data;
-global using Microsoft.EntityFrameworkCore;
-
-
-
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<VehicledbContext>(x => x.UseSqlServer("Data Source=.\\SQLExpress; Initial catalog=Vehicledb; trusted_connection=yes; Encrypt=False"));
+builder.Services.AddDbContext<Mono.Data.VehicledbContext>(x => x.UseSqlServer("Data Source=.\\SQLExpress; Initial catalog=Vehicledb; trusted_connection=yes; Encrypt=False"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+var containerBuilder = new ContainerBuilder();
+containerBuilder.Populate(app.Services);
+
+var container = containerBuilder.Build();
+
+app.ApplicationServices = new AutofacServiceProvider(container);
 
 app.Run();
