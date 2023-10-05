@@ -13,12 +13,12 @@ namespace Mono.Controllers
     public class VehicleModelsController : Controller
     {
         private readonly VehicledbContext _context;
-        private readonly YourService _yourService;
+        private readonly VehicleService _service;
 
-        public VehicleModelsController(VehicledbContext context, YourService yourService)
+        public VehicleModelsController(VehicledbContext context, VehicleService _service)
         {
             _context = context;
-            _yourService = yourService;
+            _service = vehicleService;
         }
 
         public async Task<IActionResult> Index()
